@@ -46,7 +46,6 @@ int main(int argc, const char * argv[]) {
 	} catch (runtime_error e) {cerr << e.what() << endl << endl; printHelp(); return -1;}
 	
 	if ( strcmp(argv[1], "-e") == 0 ) {encrypt(argv[2]);}
-	//else {decrypt(argv[2]);} //not  yet implemented
-	else cout << "lelelel";
+	else {decrypt(argv[2]);}
 	return 0;
 }

@@ -6,7 +6,7 @@
 //  Copyright © 2016 Henry. All rights reserved.
 //
 
-#pragma head_h
+#pragma once
 
 #include <iostream>
 #include <vector>
@@ -18,5 +18,6 @@
 #include <stdio.h>
 
 #include "encrypt.hpp"
+#include "decrypt.hpp"
 
 const static int KEY_LENGTH = 4;

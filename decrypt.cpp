@@ -11,7 +11,8 @@
 
 using namespace std;
 
-int encrypt(const char * arg1) {
+int decrypt(const char * arg1) {
+	
 	//declare locals outside of try
 	streampos size;
 	char * memblock = {0};
@@ -32,17 +33,21 @@ int encrypt(const char * arg1) {
 		}
 		else throw runtime_error("Unable to open file");
 
-		// Ask for key
+/*		// Ask for key
 		cout << "Please enter your key: ";
-		long rawKey;
-		cin >> rawKey;
+		unsigned long rawKey;
+		cin >> rawKey; */
 		
 		// Switch it into an array of a length;
-		char keyArray[KEY_LENGTH];
+		char keyArray[KEY_LENGTH] = {0};
 		for (int i = 0; i < KEY_LENGTH; i++) {
+			cout << "enter the " << i+1 << " key: ";
+			int rawKey;
+			cin >> rawKey;
 			keyArray[i] = rawKey;
-			rawKey >>= sizeof(char);
+			//rawKey >>= sizeof(char);
 		}
+		
 		
 		
 		// Actually doing the XORing

@@ -6,5 +6,6 @@
 //  Copyright © 2016 Henry. All rights reserved.
 //
 
-#pragma decrypt_hpp
+#pragma once
 
+int decrypt(const char * arg1);

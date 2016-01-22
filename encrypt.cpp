@@ -61,8 +61,9 @@ try{
 		output.close();
 		
 		// Make private key an int
-		unsigned int key = 0;
+		unsigned long key = 0;
 		for (auto i: keyArray) {
+			cout << static_cast<int>(i) << endl;
 			key = key << sizeof(char);
 			key+=i;
 		}
