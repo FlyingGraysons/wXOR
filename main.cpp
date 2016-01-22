@@ -29,7 +29,7 @@ void checkArgs(int argc, const char * arg2) {
 
 void printHelp() {
 	cout << "wXOR Encryption:" << endl;
-	cout << "More info: www.leekspin.com" << endl;
+	cout << "More info: http://www.github.com/FlyingGraysons/wXOR/" << endl;
 	cout << "Usage:" << endl;
 	cout << "\tArguments: -e [filename], -d [filename]" << endl;
 	cout << "\t\t-e: encyption" << endl;

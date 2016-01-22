@@ -7,11 +7,10 @@
 //
 
 #include "head.h"
-#include "decrypt.hpp"
 
 using namespace std;
 
-int decrypt(const char * arg1) {
+int decrypt(const char * filename) {
 	
 	//declare locals outside of try
 	streampos size;
@@ -21,7 +20,7 @@ int decrypt(const char * arg1) {
 	try{
 		
 		// Reads file into memory block.
-		ifstream file (arg1, ios::in|ios::binary|ios::ate);
+		ifstream file (filename, ios::in|ios::binary|ios::ate);
 		if (file.is_open())
 		{
 			size = file.tellg();
@@ -32,7 +31,7 @@ int decrypt(const char * arg1) {
 			
 		}
 		else throw runtime_error("Unable to open file");
-
+		
 		// Ask for key
 		cout << "Please enter your key: ";
 		BIG rawKey;
@@ -55,6 +54,8 @@ int decrypt(const char * arg1) {
 		} else throw runtime_error("Couldn't open file");
 		output.close();
 		
+		//cleanup
+		delete [] memblock;
 		
 		// catch errors
 	} catch (runtime_error e) {

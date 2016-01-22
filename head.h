@@ -17,11 +17,12 @@
 #include <string.h>
 #include <stdio.h>
 
-#include "encrypt.hpp"
-#include "decrypt.hpp"
-
 #define KEY_LENGTH 4
 
 //typing
 typedef uint8_t SMALL;
 typedef uint32_t BIG;
+
+//funtions:
+int encrypt(const char * filename); // encrypts with random key, taking a filename as param
+int decrypt(const char * filename); // decrypts with inputted key, taking filename as param

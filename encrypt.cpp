@@ -7,75 +7,76 @@
 //
 
 #include "head.h"
-#include "encrypt.hpp"
 
 using namespace std;
 
-int encrypt(const char * arg1) {
-//declare locals outside of try
-streampos size;
-char * memblock = {0};
-
-// all enclosing try statment
-try{
+int encrypt(const char * filename) {
+	//declare locals outside of try
+	streampos size;
+	char * memblock = {0};
 	
-	// Reads file into memory block.
-	ifstream file (arg1, ios::in|ios::binary|ios::ate);
-	if (file.is_open())
-	{
-		size = file.tellg();
-		memblock = new char [size];
-		file.seekg (0, ios::beg);
-		file.read (memblock, size);
-		file.close();
+	// all enclosing try statment
+	try{
 		
-	}
-	else throw runtime_error("Unable to open file");
+		// Reads file into memory block.
+		ifstream file (filename, ios::in|ios::binary|ios::ate);
+		if (file.is_open())
+		{
+			size = file.tellg();
+			memblock = new char [size];
+			file.seekg (0, ios::beg);
+			file.read (memblock, size);
+			file.close();
+			
+		}
+		else throw runtime_error("Unable to open file");
 		
-	/*	To be implemented as a password picker.
-	 cout << endl << "Please enter your 8 character key. If you want no key, please leave blank: ";
-	 char * key;
-	 cin.get(key, cin);
-	 */
-	
-	//initialize random
-	srand(time(NULL));
-	
+		/*	To be implemented as a password picker.
+		 cout << endl << "Please enter your 8 character key. If you want no key, please leave blank: ";
+		 char * key;
+		 cin.get(key, cin);
+		 */
+		
+		//initialize random
+		srand(time(NULL));
+		
 		// Make the key
 		SMALL keyArray[KEY_LENGTH];
-	for (int i = 0; i < KEY_LENGTH; i++) {
-		keyArray[i] = rand();
-	}
-	
-	// Actually doing the XORing
-	for (int iter = 0; iter < size; iter++) {
-		memblock[iter] = memblock[iter] ^ keyArray[iter%KEY_LENGTH];
-	}
-	
-	
-	// Output to a new file
-	ofstream output("encrypted.txt", ios::out|ios::binary);
-	if(output.is_open()) {
-		output.write(memblock, size);
-	} else throw runtime_error("Couldn't open file");
+		for (int i = 0; i < KEY_LENGTH; i++) {
+			keyArray[i] = rand();
+		}
+		
+		// Actually doing the XORing
+		for (int iter = 0; iter < size; iter++) {
+			memblock[iter] = memblock[iter] ^ keyArray[iter%KEY_LENGTH];
+		}
+		
+		
+		// Output to a new file
+		ofstream output("encrypted.txt", ios::out|ios::binary);
+		if(output.is_open()) {
+			output.write(memblock, size);
+		} else throw runtime_error("Couldn't open file");
 		output.close();
 		
 		// Make private key an int
 		BIG key = 0;
-	for (int i = 0; i < KEY_LENGTH; i++) {
+		for (int i = 0; i < KEY_LENGTH; i++) {
 			cout << static_cast<int>(keyArray[i]) << " ";
 			key = keyArray[i];
 			key <<= sizeof(SMALL);
-		//	key|= i;
+			//	key|= i;
 		}
 		memcpy(&key, keyArray, (sizeof(SMALL) * KEY_LENGTH));
-	
-	// Print it
-	// for (auto i: keyArray) { cout << static_cast<int>(i) << endl; } // prints each key
-	cout << "Your private key is: " << key << endl;
-	
-	
-	// catch errors
+		
+		// Print it
+		// for (auto i: keyArray) { cout << static_cast<int>(i) << endl; } // prints each key
+		cout << "Your private key is: " << key << endl;
+		
+		// cleanup
+		delete [] memblock;
+		
+		// catch errors
 	} catch (runtime_error e) {
 		cerr << e.what() << endl; // print error
 		delete[] memblock; //cleanup
