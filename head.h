@@ -20,4 +20,8 @@
 #include "encrypt.hpp"
 #include "decrypt.hpp"
 
-const static int KEY_LENGTH = 4;
+#define KEY_LENGTH 4
+
+//typing
+typedef uint8_t SMALL;
+typedef uint32_t BIG;

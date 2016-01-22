@@ -42,7 +42,7 @@ try{
 	srand(time(NULL));
 	
 		// Make the key
-		char keyArray[KEY_LENGTH];
+		SMALL keyArray[KEY_LENGTH];
 	for (int i = 0; i < KEY_LENGTH; i++) {
 		keyArray[i] = rand();
 	}
@@ -61,11 +61,12 @@ try{
 		output.close();
 		
 		// Make private key an int
-		unsigned long key = 0;
-		for (auto i: keyArray) {
-			cout << static_cast<int>(i) << endl;
-			key = key << sizeof(char);
-			key+=i;
+		BIG key = 0;
+	for (int i = 0; i < KEY_LENGTH; i++) {
+			cout << static_cast<int>(keyArray[i]) << " ";
+			key = keyArray[i];
+			key <<= sizeof(SMALL);
+		//	key|= i;
 		}
 	
 	// Print it

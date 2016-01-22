@@ -33,22 +33,18 @@ int decrypt(const char * arg1) {
 		}
 		else throw runtime_error("Unable to open file");
 
-/*		// Ask for key
+		// Ask for key
 		cout << "Please enter your key: ";
-		unsigned long rawKey;
-		cin >> rawKey; */
+		BIG rawKey;
+		cin >> rawKey;
 		
 		// Switch it into an array of a length;
-		char keyArray[KEY_LENGTH] = {0};
+		SMALL *vp = (SMALL *)&rawKey;
+		SMALL keyArray[KEY_LENGTH] = {0};
 		for (int i = 0; i < KEY_LENGTH; i++) {
-			cout << "enter the " << i+1 << " key: ";
-			int rawKey;
-			cin >> rawKey;
-			keyArray[i] = rawKey;
-			//rawKey >>= sizeof(char);
+			keyArray[i] = vp[i];
+			cout << static_cast<int>(keyArray[i]) <<endl;
 		}
-		
-		
 		
 		// Actually doing the XORing
 		for (int iter = 0; iter < size; iter++) {
