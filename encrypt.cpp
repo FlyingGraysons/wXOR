@@ -68,6 +68,7 @@ try{
 			key <<= sizeof(SMALL);
 		//	key|= i;
 		}
+		memcpy(&key, keyArray, (sizeof(SMALL) * KEY_LENGTH));
 	
 	// Print it
 	// for (auto i: keyArray) { cout << static_cast<int>(i) << endl; } // prints each key

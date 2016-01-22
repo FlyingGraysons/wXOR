@@ -38,13 +38,9 @@ int decrypt(const char * arg1) {
 		BIG rawKey;
 		cin >> rawKey;
 		
-		// Switch it into an array of a length;
-		SMALL *vp = (SMALL *)&rawKey;
+		
 		SMALL keyArray[KEY_LENGTH] = {0};
-		for (int i = 0; i < KEY_LENGTH; i++) {
-			keyArray[i] = vp[i];
-			cout << static_cast<int>(keyArray[i]) <<endl;
-		}
+		memcpy(keyArray, &rawKey, sizeof(BIG));
 		
 		// Actually doing the XORing
 		for (int iter = 0; iter < size; iter++) {
