@@ -1,9 +1,18 @@
 # wXOR
-A custom encryption system, with randomly generated 32-bit encryption, using XOR. 
-Uses binary read and write to encrypt any file type, of any length.
-Written in C++.
-Also, anyone can change bit-count using `#define` in the header file.
+Custom encyrption system, run from the Command line.
+
+#Features
+Randomly generated 64-bit encryption, using XOR. 
+
+Also, anyone can change bit-count by changing simple setting in the header file.
+
 The output filename is also settable.
+
+Uses binary read and write to encrypt any file type, of any length.
+
+Clearly documented.
+
+Written in C++.
 
 Works cross-platform.
 
