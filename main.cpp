@@ -1,6 +1,6 @@
 //
 //  main.cpp
-//  XORencrypt
+//  wXOR
 //
 //  Created by Henry on 1/21/16.
 //  Copyright © 2016 Henry. All rights reserved.
@@ -72,12 +72,13 @@ int main(int argc, const char * argv[]) {
 // do the encrypting and decrypting
 // has default outPutFile of "wXOR.txt", raw key will be prompted if not set, randomly generated for outPut files.
 void encryptDe(const char * filename, const bool encrypting, const BIG rawKey, const char * outPutFile) {
-	//declare locals outside of try
-	streampos size;
+	//declare array outside of try
 	char * memblock = {0};
 	
 	// all enclosing try statment
 	try{
+		// declare local variables
+		streampos size;
 		
 		// Reads file into memory block.
 		ifstream file (filename, ios::in|ios::binary|ios::ate);
@@ -98,6 +99,8 @@ void encryptDe(const char * filename, const bool encrypting, const BIG rawKey, c
 		 cin.get(key, cin);
 		 */
 		
+		// declare array of keys
+		SMALL keyArray[KEY_LENGTH];
 
 		if (encrypting) {
 			
@@ -105,14 +108,8 @@ void encryptDe(const char * filename, const bool encrypting, const BIG rawKey, c
 			srand(time(0));
 			
 			// Make the key
-			SMALL keyArray[KEY_LENGTH];
 			for (int i = 0; i < KEY_LENGTH; i++) {
 				keyArray[i] = rand();
-			}
-			
-			// Actually doing the XORing
-			for (int iter = 0; iter < size; iter++) {
-				memblock[iter] = memblock[iter] ^ keyArray[iter%KEY_LENGTH];
 			}
 			
 			// Make private key an int
@@ -124,17 +121,15 @@ void encryptDe(const char * filename, const bool encrypting, const BIG rawKey, c
 			cout << "Your private key is: " << key << endl;
 			
 		} else {
-			
-			
-			SMALL keyArray[KEY_LENGTH] = {0};
+			// copy key into the keyArray
 			memcpy(keyArray, &rawKey, sizeof(BIG));
-			
-			// Actually doing the XORing
-			for (int iter = 0; iter < size; iter++) {
-				memblock[iter] = memblock[iter] ^ keyArray[iter%KEY_LENGTH];
-			}
-			
 		}
+		
+		// Actually doing the XORing
+		for (int iter = 0; iter < size; iter++) {
+			memblock[iter] = memblock[iter] ^ keyArray[iter%KEY_LENGTH];
+		}
+
 		
 		// Output to a new file
 		ofstream output(outPutFile, ios::out|ios::binary);
