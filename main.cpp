@@ -71,7 +71,7 @@ int main(int argc, const char * argv[]) {
 
 // do the encrypting and decrypting
 // has default outPutFile of "wXOR.txt", raw key will be prompted if not set, randomly generated for outPut files.
-void encryptDe(const char * filename, const bool encrypting, const uint32_t rawKey, const char * outPutFile) {
+void encryptDe(const char * filename, const bool encrypting, const BIG rawKey, const char * outPutFile) {
 	//declare locals outside of try
 	streampos size;
 	char * memblock = {0};
@@ -102,7 +102,7 @@ void encryptDe(const char * filename, const bool encrypting, const uint32_t rawK
 		if (encrypting) {
 			
 			//initialize random
-			srand(time(NULL));
+			srand(time(0));
 			
 			// Make the key
 			SMALL keyArray[KEY_LENGTH];

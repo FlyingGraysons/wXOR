@@ -8,21 +8,20 @@
 
 #pragma once
 
+// DONT CHANGE
 #include <iostream>
-#include <vector>
 #include <fstream>
 #include <random>
 #include <time.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-
-#define KEY_LENGTH 4
+typedef uint8_t SMALL; // keep same, perfect size for XORing with other chars
 
 //typing
-typedef uint8_t SMALL;
-typedef uint32_t BIG;
+// BIG must be KEY_LENGTH times bigger than SMALL
+// the all move in proportion
+// eg. if KEY_LENGTH is 4, use uint32_t as BIG
+typedef uint64_t BIG; // change to keep proportion
+#define KEY_LENGTH 8
 
 //funtions:
-void encryptDe(const char * filename, const bool encrypting, const uint32_t rawKey, const char * outPutFile = "wXOR.txt"); // encrypts with random key, or decrypts
+void encryptDe(const char * filename, const bool encrypting, const BIG rawKey, const char * outPutFile = "wXOR.txt"); // encrypts with random key, or decrypts
 // first param, input filename, second, encryption or decryption, third is raw key for decryption, fourth optional output filename
