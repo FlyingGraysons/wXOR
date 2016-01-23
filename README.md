@@ -1,12 +1,16 @@
 # wXOR
 Custom encyrption system, run from the Command line.
-### Usage:
-wXOR Encryption:
+### Usage:  
+wXOR Encryption:  
 Usage:  
   Arguments: -e [filename] [output file], -d [filename] [output file]  
     -e: encyption  
     -d: decryption  
     The output file is optional, and has a default value of wXOR.txt 
+
+
+### To compile:
+`g++ -std=C++11 main.cpp head.h`
 
 #Features
 - Randomly generated 64-bit encryption, using XOR. 
@@ -17,8 +21,6 @@ Usage:
 - Written in C++.
 - Works cross-platform.
 
-# To compile:
-`g++ -std=C++11 main.cpp head.h`
 
 #ToDo
 1. Allow people to set their own passwords
