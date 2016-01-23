@@ -1,5 +1,5 @@
 //
-//  head.hpp
+//  head.h
 //  wXOR
 //
 //  Created by Henry on 1/21/16.

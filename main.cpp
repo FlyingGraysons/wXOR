@@ -6,7 +6,7 @@
 //  Copyright © 2016 Henry. All rights reserved.
 //
 
-#include "head.hpp"
+#include "head.h"
 
 using namespace std;
 
