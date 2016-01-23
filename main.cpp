@@ -17,6 +17,7 @@ void checkArgs(int argc, const char * arg2) {
 			throw runtime_error("Please enter a file to encrypt as an argument");
 			break;
   case 3:
+  case 4:
 			if ( (strcmp(arg2, "-e") != 0) && (strcmp(arg2, "-d") != 0) ) {
 				throw runtime_error("Please use \'-e\' or \'-d\'");
 			}
@@ -31,21 +32,124 @@ void printHelp() {
 	cout << "wXOR Encryption:" << endl;
 	cout << "More info: http://www.github.com/FlyingGraysons/wXOR/" << endl;
 	cout << "Usage:" << endl;
-	cout << "\tArguments: -e [filename], -d [filename]" << endl;
+	cout << "\tArguments: -e [filename] [output file], -d [filename] [output file]" << endl;
 	cout << "\t\t-e: encyption" << endl;
 	cout << "\t\t-d: decryption" << endl;
+	cout << "\t\tThe output file is optional, and has a default value of wXOR.txt" << endl;
 }
 
 int main(int argc, const char * argv[]) {
 	
 	try {
-	
-	// makes sure arguments are done right
-	checkArgs(argc, argv[1]);
 		
-	} catch (runtime_error e) {cerr << e.what() << endl << endl; printHelp(); return -1;}
+		// makes sure arguments are done right
+		checkArgs(argc, argv[1]);
+		
+	} catch (runtime_error e) {
+		cerr << e.what() << endl << endl; printHelp(); return -1;
+	}
 	
-	if ( strcmp(argv[1], "-e") == 0 ) {encrypt(argv[2]);}
-	else {decrypt(argv[2]);}
+	// set defaults
+	bool encrypting = true;
+	BIG rawKey = 0;
+	
+	if ( strcmp(argv[1], "-d") == 0 ) {
+		encrypting = false;
+		cout << "Please enter your key: ";
+		cin >> rawKey;
+	}
+	
+	if (argc ==4) {
+		encryptDe(argv[2], encrypting, rawKey, argv[3]);
+	} else {
+		encryptDe(argv[2], encrypting, rawKey);
+	}
+	
 	return 0;
+}
+
+
+// do the encrypting and decrypting
+// has default outPutFile of "wXOR.txt", raw key will be prompted if not set, randomly generated for outPut files.
+void encryptDe(const char * filename, const bool encrypting, const uint32_t rawKey, const char * outPutFile) {
+	//declare locals outside of try
+	streampos size;
+	char * memblock = {0};
+	
+	// all enclosing try statment
+	try{
+		
+		// Reads file into memory block.
+		ifstream file (filename, ios::in|ios::binary|ios::ate);
+		if (file.is_open())
+		{
+			size = file.tellg();
+			memblock = new char [size];
+			file.seekg (0, ios::beg);
+			file.read (memblock, size);
+			file.close();
+			
+		}
+		else throw runtime_error("Unable to open input file");
+		
+		/*	To be implemented as a password picker.
+		 cout << endl << "Please enter your 8 character key. If you want no key, please leave blank: ";
+		 char * key;
+		 cin.get(key, cin);
+		 */
+		
+
+		if (encrypting) {
+			
+			//initialize random
+			srand(time(NULL));
+			
+			// Make the key
+			SMALL keyArray[KEY_LENGTH];
+			for (int i = 0; i < KEY_LENGTH; i++) {
+				keyArray[i] = rand();
+			}
+			
+			// Actually doing the XORing
+			for (int iter = 0; iter < size; iter++) {
+				memblock[iter] = memblock[iter] ^ keyArray[iter%KEY_LENGTH];
+			}
+			
+			// Make private key an int
+			BIG key = 0;
+			memcpy(&key, keyArray, (sizeof(SMALL) * KEY_LENGTH));
+			
+			// Print it
+			// for (auto i: keyArray) { cout << static_cast<int>(i) << endl; } // prints each key
+			cout << "Your private key is: " << key << endl;
+			
+		} else {
+			
+			
+			SMALL keyArray[KEY_LENGTH] = {0};
+			memcpy(keyArray, &rawKey, sizeof(BIG));
+			
+			// Actually doing the XORing
+			for (int iter = 0; iter < size; iter++) {
+				memblock[iter] = memblock[iter] ^ keyArray[iter%KEY_LENGTH];
+			}
+			
+		}
+		
+		// Output to a new file
+		ofstream output(outPutFile, ios::out|ios::binary);
+		if(output.is_open()) {
+			output.write(memblock, size);
+		} else throw runtime_error("Couldn't open output file");
+		output.close();
+		
+		// cleanup
+		delete [] memblock;
+		
+		// catch errors
+	} catch (runtime_error e) {
+		cerr << e.what() << endl; // print error
+		delete[] memblock; //cleanup
+		return;
+	}
 }

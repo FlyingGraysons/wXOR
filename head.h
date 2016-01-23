@@ -24,5 +24,5 @@ typedef uint8_t SMALL;
 typedef uint32_t BIG;
 
 //funtions:
-int encrypt(const char * filename); // encrypts with random key, taking a filename as param
-int decrypt(const char * filename); // decrypts with inputted key, taking filename as param
+void encryptDe(const char * filename, const bool encrypting, const uint32_t rawKey, const char * outPutFile = "wXOR.txt"); // encrypts with random key, or decrypts
+// first param, input filename, second, encryption or decryption, third is raw key for decryption, fourth optional output filename
