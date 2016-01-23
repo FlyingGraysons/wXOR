@@ -10,7 +10,7 @@ Usage:
 
 
 ### To compile:
-`g++ -std=C++11 main.cpp head.h`
+`g++ -std=C++11 main.cpp head.h -wXOR`
 
 #Features
 - Randomly generated 64-bit encryption, using XOR. 
