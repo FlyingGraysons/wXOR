@@ -19,3 +19,6 @@ Custom encyrption system, run from the Command line.
 #ToDo
 1. Allow people to set their own passwords
 2. Optimize code better, make code more compact.
+3. Add extra security:
+  - Set variables to clear from debuggers
+  - Other cool stuff
