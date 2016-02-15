@@ -3,7 +3,9 @@ Custom encyrption system, run from the Command line.
 
 ### To compile:
 `g++ main.cpp -o wXOR` (wXOR is the output filename in this case)
-
+### To use:
+`./wXOR -e <input file> <output file>` encrypts input file  
+`./wXOR -d <input file> <output file>` decrypts input file
 #Features
 - Randomly generated 64-bit encryption, using XOR. 
 - Because it does not use hashes, it is incredible time consuming to crack
