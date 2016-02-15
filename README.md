@@ -6,9 +6,10 @@ Custom encyrption system, run from the Command line.
 ### To use:
 `./wXOR -e <input file> <output file>` encrypts input file  
 `./wXOR -d <input file> <output file>` decrypts input file
+Output file is optional, and defaults to wXOR.txt
 #Features
 - Randomly generated 64-bit encryption, using XOR. 
-- Because it does not use hashes, it is incredible time consuming to crack
+- *Because it does not use hashes, it is incredible time consuming to crack*
 - Also, anyone can change bit-count by changing simple setting in the header file.
 - The output filename is also settable.
 - Uses binary read and write to encrypt any file type, of any length.
@@ -22,3 +23,4 @@ Custom encyrption system, run from the Command line.
 3. Add extra security:
   - Set variables to clear from debuggers
   - Other cool stuff
+4. Allow key to be used from command line
