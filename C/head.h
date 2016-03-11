@@ -1,6 +1,6 @@
 //
 //  head.h
-//  XORencrypt
+//  wXOR
 //
 //  Created by Henry on 3/10/16.
 //  Copyright © 2016 Henry. All rights reserved.
