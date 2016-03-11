@@ -71,7 +71,7 @@ void encryptDe(const char * filename, const bool encrypting, const BIG rawKey, c
 	long size = ftell(f); // get current file pointer
 	fseek(f, 0, SEEK_SET); // seek back to beginning of file
 	
-	memblock = calloc( size, sizeof(char)); // allocate memblock to correct size
+	memblock = malloc( size * sizeof(char)); // allocate memblock to correct size
 	fread(memblock, sizeof(char), size, f);// Reads file into memory block.
 	fclose(f); // Close file
 	
