@@ -39,4 +39,4 @@ install: #updates compilers and builds
 
 script:
   - cd C && make main
-  - cd CPP && make main
+  - cd ../CPP && make main
